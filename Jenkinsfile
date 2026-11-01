@@ -6,7 +6,8 @@ pipeline {
         DOCKER_CRED_ID = 'docker-hub-credentials'
         
         // Sửa cú pháp tag: Dùng dấu gạch ngang (-) hoặc chấm (.) thay vì hai chấm (:)
-        IMAGE_TAG = "v1.0-${BUILD_NUMBER}" // Tạo ra tag hợp lệ dạng: mrkieubui/task-manager-backend:v1.0-1
+        // IMAGE_TAG = "v1.0-${BUILD_NUMBER}" // Tạo ra tag hợp lệ dạng: mrkieubui/task-manager-backend:v1.0-1
+        IMAGE_TAG = "v1.0" // Tạo ra tag hợp lệ dạng: mrkieubui/task-manager-backend:v1.0-1
     }
 
     options {
@@ -26,7 +27,7 @@ pipeline {
             steps {
                 script {
                     echo "Building Docker Image: ${REGISTRY_IMAGE}:${IMAGE_TAG}"
-                    dockerImage = docker.build("${REGISTRY_IMAGE}:${IMAGE_TAG}", "-f Dockerfile .")
+                    dockerImage = docker.build("${REGISTRY_IMAGE}:${IMAGE_TAG}", "--cache-from ${REGISTRY_IMAGE}:latest -f Dockerfile .")
                 }
             }
         }
