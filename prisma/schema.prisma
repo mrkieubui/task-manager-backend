@@ -19,4 +19,9 @@ model Task {
   completed   Boolean  @default(false)
   createdAt   DateTime @default(now())
   priority    String   @default("medium")
+
+  // Liên kết Task cha - con
+  parentId    Int?
+  parent      Task?    @relation("TaskSubtasks", fields: [parentId], references: [id], onDelete: Cascade)
+  subtasks    Task[]   @relation("TaskSubtasks")
 }
