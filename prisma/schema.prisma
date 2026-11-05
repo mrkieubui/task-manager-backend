@@ -18,4 +18,5 @@ model Task {
   description String?
   completed   Boolean  @default(false)
   createdAt   DateTime @default(now())
+  priority    String   @default("medium")
 }
